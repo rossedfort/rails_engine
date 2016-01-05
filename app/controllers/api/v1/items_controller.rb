@@ -11,7 +11,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def find
     if params["id"] || params["merchant_id"] || params["unit_price"]
-      respond_with Item.where("#{params.first[0]}": params.first[1].to_i).first
+      respond_with Item.where("#{params.first[0]}": params.first[1]).first
     elsif params["created_at"] || params["updated_at"]
       respond_with Item.where("#{params.first[0]}": params.first[1]).first
     else
@@ -21,7 +21,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def find_all
     if params["id"] || params["merchant_id"] || params["unit_price"]
-      respond_with Item.where("#{params.first[0]}": params.first[1].to_i)
+      respond_with Item.where("#{params.first[0]}": params.first[1])
     elsif params["created_at"] || params["updated_at"]
       respond_with Item.where("#{params.first[0]}": params.first[1])
     else
