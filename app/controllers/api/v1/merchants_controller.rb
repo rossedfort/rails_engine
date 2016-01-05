@@ -13,6 +13,10 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Merchant.where('name ILIKE ?', request.query_parameters.values.first)
   end
 
+  def find_all
+    respond_with Merchant.where('name ILIKE ?', request.query_parameters.values.first)
+  end
+
   private
 
   def paramaterize_query(query_parameters)
