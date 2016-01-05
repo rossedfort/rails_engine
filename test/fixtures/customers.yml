@@ -4,13 +4,21 @@ one:
   id: 1
   first_name: Ross
   last_name: Edfort
+  created_at: 2016-01-04 21:44:17 -0700
+  updated_at: 2016-01-03 14:12:47 -0700
+
 
 two:
   id: 2
   first_name: Turd
   last_name: Furgeson
+  created_at: 2016-01-04 21:44:17 -0700
+  updated_at: 2016-01-04 14:13:47 -0700
+
 
 three:
   id: 3
   first_name: Ross
   last_name: Furgeson
+  created_at: 2016-01-04 21:44:17 -0700
+  updated_at: 2016-01-02 21:44:17 -0700

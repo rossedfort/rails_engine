@@ -14,4 +14,58 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
     assert_equal merchant_count, controller_response.count
   end
+
+  test "should get show" do
+    get :show, format: :json, id: 1
+
+    assert_response :success
+  end
+
+  test "show action returns correct merchant" do
+    get :show, format: :json, id: 1
+    merchant = Merchant.find(1)
+    parsed_response = JSON.parse(response.body)
+
+    assert_equal merchant.id, parsed_response["id"]
+    assert_equal merchant.name, parsed_response["name"]
+  end
+
+  test "A TEST FOR #RANDOM GOES HERE" do
+    skip
+    assert true
+  end
+
+  test "find merchant by id" do
+    get :find, format: :json, id: 1
+
+    assert_response :success
+  end
+
+  test "find merchant by name" do
+    get :find, format: :json, name: "A Cool Store"
+
+    assert_response :success
+  end
+
+  test "find merchant by first name - case insensitive" do
+    get :find, format: :json, name: "a coOl StoRe"
+
+    assert_response :success
+  end
+
+  test "find all returns all records matching query parameters - name" do
+    get :find_all, format: :json, name: "A Cool Store"
+    parsed_response = JSON.parse(response.body)
+    assert_response :success
+
+    assert_equal 2, parsed_response.count
+  end
+
+  test "find all returns all records matching query parameters - created at" do
+    get :find_all, format: :json, created_at: "2016-01-05T04:44:17.000Z"
+    parsed_response = JSON.parse(response.body)
+    assert_response :success
+
+    assert_equal 3, parsed_response.count
+  end
 end
