@@ -24,4 +24,8 @@ class Api::V1::ItemsController < ApplicationController
       respond_with Item.where("#{params.first[0]}": params.first[1])
     end
   end
+
+  def random
+    respond_with Item.random
+  end
 end

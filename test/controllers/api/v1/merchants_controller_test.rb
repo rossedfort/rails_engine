@@ -30,9 +30,10 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_equal merchant.name, parsed_response["name"]
   end
 
-  test "A TEST FOR #RANDOM GOES HERE" do
-    skip
-    assert true
+  test "random action returns a random record" do
+    get :random, format: :json
+
+    assert_response :success
   end
 
   test "find merchant by id" do

@@ -31,9 +31,10 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert_equal item.description, parsed_response["description"]
   end
 
-  test "A TEST FOR #RANDOM GOES HERE" do
-    skip
-    assert true
+  test "random action returns a random record" do
+    get :random, format: :json
+
+    assert_response :success
   end
 
   test "find item by id" do

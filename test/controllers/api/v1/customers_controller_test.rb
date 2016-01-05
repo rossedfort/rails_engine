@@ -31,9 +31,10 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
     assert_equal customer.last_name, parsed_response["last_name"]
   end
 
-  test "A TEST FOR #RANDOM GOES HERE" do
-    skip
-    assert true
+  test "random action returns a random record" do
+    get :random, format: :json
+
+    assert_response :success
   end
 
   test "find customer by id" do

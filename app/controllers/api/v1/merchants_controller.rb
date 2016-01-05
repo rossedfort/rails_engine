@@ -24,4 +24,8 @@ class Api::V1::MerchantsController < ApplicationController
       respond_with Merchant.where("#{params.first[0]}": params.first[1])
     end
   end
+
+  def random
+    respond_with Merchant.random
+  end
 end

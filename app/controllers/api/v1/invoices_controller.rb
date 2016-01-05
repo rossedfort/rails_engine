@@ -24,4 +24,8 @@ class Api::V1::InvoicesController < ApplicationController
       respond_with Invoice.where("#{params.first[0]}": params.first[1])
     end
   end
+
+  def random
+    respond_with Invoice.random
+  end
 end

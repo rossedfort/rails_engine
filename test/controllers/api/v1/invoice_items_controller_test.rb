@@ -32,9 +32,10 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
     assert_equal invoice_item.invoice_id, parsed_response["invoice_id"]
   end
 
-  test "A TEST FOR #RANDOM GOES HERE" do
-    skip
-    assert true
+  test "random action returns a random record" do
+    get :random, format: :json
+
+    assert_response :success
   end
 
   test "find invoice item by id" do
