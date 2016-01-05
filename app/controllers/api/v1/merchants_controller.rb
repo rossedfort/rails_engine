@@ -10,22 +10,22 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    if request.query_parameters.keys.first == "id"
-      respond_with Merchant.where(id: request.query_parameters.values.first.to_i).first
-    elsif request.query_parameters.keys.first == "created_at" || request.query_parameters.keys.first == "updated_at"
-      respond_with Merchant.where("#{request.query_parameters.keys.first}": request.query_parameters.values.first.to_time).first
+    if params["id"]
+      respond_with Merchant.where(id: params["id"].to_i).first
+    elsif params["created_at"] || params["updated_at"]
+      respond_with Merchant.where("#{params.first[0]}": params.first[1]).first
     else
-      respond_with Merchant.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first).first
+      respond_with Merchant.where("#{params.first[0]} ILIKE ?", params.first[1]).first
     end
   end
 
   def find_all
-    if request.query_parameters.keys.first == "id"
-      respond_with Merchant.where(id: request.query_parameters.values.first.to_i)
-    elsif request.query_parameters.keys.first == "created_at" || request.query_parameters.keys.first == "updated_at"
-      respond_with Merchant.where("#{request.query_parameters.keys.first}": request.query_parameters.values.first.to_time)
+    if params["id"]
+      respond_with Merchant.where(id: params["id"].to_i)
+    elsif params["created_at"] || params["updated_at"]
+      respond_with Merchant.where("#{params.first[0]}": params.first[1])
     else
-      respond_with Merchant.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first)
+      respond_with Merchant.where("#{params.first[0]} ILIKE ?", params.first[1])
     end
   end
 end
