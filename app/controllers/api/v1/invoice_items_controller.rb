@@ -10,10 +10,10 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def find
-    respond_with InvoiceItem.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first).first
+    respond_with InvoiceItem.where("#{params.first[0]}": params.first[1]).first
   end
 
   def find_all
-    respond_with InvoiceItem.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first)
+    respond_with InvoiceItem.where("#{params.first[0]}": params.first[1])
   end
 end

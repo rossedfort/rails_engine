@@ -1,8 +1,8 @@
 class Item < ActiveRecord::Base
   before_validation :sanitize_price
   validates :unit_price, presence: true
-  belongs_to :merchant
 
+  belongs_to :merchant
   has_many :invoice_items
   has_many :items, through: :invoice_items
 

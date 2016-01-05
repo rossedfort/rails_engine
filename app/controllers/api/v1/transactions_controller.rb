@@ -10,10 +10,10 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def find
-    respond_with Transaction.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first).first
+    respond_with Transaction.where("#{params.first[0]}": params.first[1]).first
   end
 
   def find_all
-    respond_with Transaction.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first)
+    respond_with Transaction.where("#{params.first[0]}": params.first[1])
   end
 end
