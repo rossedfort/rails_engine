@@ -77,4 +77,28 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
 
     assert_equal 3, parsed_response.count
   end
+
+  test "#invoice responds to json" do
+    get :invoice, format: :json, id: InvoiceItem.first.id
+
+    assert_response :success
+  end
+
+  test "#invoice returns a single invoice record" do
+    get :invoice, format: :json, id: InvoiceItem.first.id
+
+    assert_kind_of Hash, json_response
+  end
+
+  test "#item responds to json" do
+    get :item, format: :json, id: InvoiceItem.first.id
+
+    assert_response :success
+  end
+
+  test "#item returns a single item record" do
+    get :item, format: :json, id: InvoiceItem.first.id
+
+    assert_kind_of Hash, json_response
+  end
 end

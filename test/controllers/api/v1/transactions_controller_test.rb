@@ -71,4 +71,16 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
 
     assert_equal 2, parsed_response.count
   end
+
+  test "#invoice responds to json" do
+    get :invoice, format: :json, id: Transaction.first.id
+
+    assert_response :success
+  end
+
+  test "#invoice returns a single invoice record for the transaction" do
+    get :invoice, format: :json, id: Transaction.first.id
+
+    assert_kind_of Hash, json_response
+  end
 end

@@ -88,4 +88,30 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
 
     assert_equal 3, parsed_response.count
   end
+
+  test "#invoices responds to json" do
+    get :invoices, format: :json, id: Customer.first.id
+
+    assert_response :success
+  end
+
+  test "#invoices returns an array of invoices" do
+    get :invoices, format: :json, id: Customer.first.id
+
+    assert_kind_of Array, json_response
+    assert Customer.first.invoices.count, json_response.count
+  end
+
+  test "#transactions responds to json" do
+    get :transactions, format: :json, id: Customer.first.id
+
+    assert_response :success
+  end
+
+  test "#transactions returns an array of transactions" do
+    get :transactions, format: :json, id: Customer.first.id
+
+    assert_kind_of Array, json_response
+    assert Customer.first.transactions.count, json_response.count
+  end
 end

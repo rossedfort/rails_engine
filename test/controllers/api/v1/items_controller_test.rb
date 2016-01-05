@@ -80,4 +80,30 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 1, parsed_response.count
   end
+
+  test "#invoice_items responds to json" do
+    get :invoice_items, format: :json, id: Item.first.id
+
+    assert_response :success
+  end
+
+  test "#invoice_items returns an array of invoice items for the correct invoice" do
+    get :invoice_items, format: :json, id: Item.first.id
+
+    assert_kind_of Array, json_response
+    assert_equal Item.first.invoice_items.count, json_response.count
+  end
+
+  test "#merchant responds to json" do
+    get :merchant, format: :json, id: Item.first.id
+
+    assert_response :success
+  end
+
+  test "#merchant returns a single merchant record for the item" do
+    get :merchant, format: :json, id: Item.first.id
+
+    assert_kind_of Hash, json_response
+    assert_equal Item.first.merchant.name, json_response["name"]
+  end
 end
