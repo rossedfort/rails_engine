@@ -22,7 +22,7 @@ task :import => :environment do
   end
   puts "created invoice items"
   CSV.readlines('data/transactions.csv', headers: true, header_converters: :symbol).each do |row|
-    Transaction.create!({id:                 row[:id],
+    Transaction.create!({id:                row[:id],
                         invoice_id:         row[:invoice_id],
                         credit_card_number: row[:credit_card_number],
                         result:             row[:result],

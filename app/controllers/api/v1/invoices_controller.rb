@@ -25,6 +25,22 @@ class Api::V1::InvoicesController < ApplicationController
     respond_with Transaction.where(invoice_id: params[:id])
   end
 
+  def invoice_items
+    respond_with InvoiceItem.where(invoice_id: params[:id])
+  end
+
+  def items
+    respond_with Invoice.find(params[:id]).items
+  end
+
+  def customer
+    respond_with Invoice.find(params[:id]).customer
+  end
+
+  def merchant
+    respond_with Invoice.find(params[:id]).merchant
+  end
+
   private
 
   def invoice_params
