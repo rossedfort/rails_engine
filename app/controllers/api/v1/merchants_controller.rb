@@ -10,16 +10,18 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    respond_with Merchant.where('name ILIKE ?', request.query_parameters.values.first)
+    if request.query_parameters.keys.first == "id"
+      respond_with Merchant.where(id: request.query_parameters.values.first.to_i).first
+    else
+      respond_with Merchant.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first).first
+    end
   end
 
   def find_all
-    respond_with Merchant.where('name ILIKE ?', request.query_parameters.values.first)
-  end
-
-  private
-
-  def paramaterize_query(query_parameters)
-    #is it necessary to paramterize the params to make it case insensitive
+    if request.query_parameters.keys.first == "id"
+      respond_with Merchant.where(id: request.query_parameters.values.first.to_i)
+    else
+      respond_with Merchant.where("#{request.query_parameters.keys.first} ILIKE ?", request.query_parameters.values.first)
+    end
   end
 end
