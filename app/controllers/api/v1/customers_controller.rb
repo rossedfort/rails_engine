@@ -10,22 +10,25 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    if params["first_name"] || params["last_name"]
-      respond_with Customer.where("#{params.first[0]} ILIKE ?", params.first[1]).first
-    else
-      respond_with Customer.where("#{params.first[0]}": params.first[1]).first
-    end
+    respond_with Customer.find_by(customer_params)
   end
 
   def find_all
-    if params["first_name"] || params["last_name"]
-      respond_with Customer.where("#{params.first[0]} ILIKE ?", params.first[1])
-    else
-      respond_with Customer.where("#{params.first[0]}": params.first[1])
-    end
+    respond_with Customer.where(customer_params)
   end
 
   def random
     respond_with Customer.random
+  end
+
+  private
+
+  def customer_params
+    params.permit(:id,
+                  :first_name,
+                  :last_name,
+                  :created_at,
+                  :updated_at
+                  )
   end
 end

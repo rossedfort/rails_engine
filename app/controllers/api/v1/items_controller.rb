@@ -10,22 +10,27 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def find
-    if params["name"]
-      respond_with Item.where("#{params.first[0]} ILIKE ?", params.first[1]).first
-    else
-      respond_with Item.where("#{params.first[0]}": params.first[1]).first
-    end
+    respond_with Item.find_by(item_params)
   end
 
   def find_all
-    if params["name"]
-      respond_with Item.where("#{params.first[0]} ILIKE ?", params.first[1])
-    else
-      respond_with Item.where("#{params.first[0]}": params.first[1])
-    end
+    respond_with Item.where(item_params)
   end
 
   def random
     respond_with Item.random
+  end
+
+  private
+
+  def item_params
+    params.permit(:id,
+                  :name,
+                  :description,
+                  :unit_price,
+                  :merchant_id,
+                  :created_at,
+                  :updated_at
+                  )
   end
 end

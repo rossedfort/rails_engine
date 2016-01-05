@@ -10,22 +10,30 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def find
-    if params["status"]
-      respond_with Invoice.where("#{params.first[0]} ILIKE ?", params.first[1]).first
-    else
-      respond_with Invoice.where("#{params.first[0]}": params.first[1]).first
-    end
+    respond_with Invoice.find_by(invoice_params)
   end
 
   def find_all
-    if params["status"]
-      respond_with Invoice.where("#{params.first[0]} ILIKE ?", params.first[1])
-    else
-      respond_with Invoice.where("#{params.first[0]}": params.first[1])
-    end
+    respond_with Invoice.where(invoice_params)
   end
 
   def random
     respond_with Invoice.random
+  end
+
+  def transactions
+    respond_with Transaction.where(invoice_id: params[:id])
+  end
+
+  private
+
+  def invoice_params
+    params.permit(:id,
+                  :status,
+                  :customer_id,
+                  :merchant_id,
+                  :created_at,
+                  :updated_at
+                  )
   end
 end

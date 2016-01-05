@@ -10,22 +10,26 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def find
-    if params["result"]
-      respond_with Transaction.where("#{params.first[0]} ILIKE ?", params.first[1]).first
-    else
-      respond_with Transaction.where("#{params.first[0]}": params.first[1]).first
-    end
+    respond_with Transaction.find_by(transaction_params)
   end
 
   def find_all
-    if params["result"]
-      respond_with Transaction.where("#{params.first[0]} ILIKE ?", params.first[1])
-    else
-      respond_with Transaction.where("#{params.first[0]}": params.first[1])
-    end
+    respond_with Transaction.where(transaction_params)
   end
 
   def random
     respond_with Transaction.random
+  end
+
+  private
+
+  def transaction_params
+    params.permit(:id,
+                  :credit_card_number,
+                  :result,
+                  :invoice_id,
+                  :created_at,
+                  :updated_at,
+                  )
   end
 end

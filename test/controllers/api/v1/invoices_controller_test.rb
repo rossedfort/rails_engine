@@ -78,11 +78,9 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     assert_equal 3, parsed_response.count
   end
 
-  test "find all returns all records matching query parameters - status - case insensitve" do
-    get :find_all, format: :json, status: "ShiPPeD"
-    parsed_response = JSON.parse(response.body)
-    assert_response :success
+  test "#transactions returns all transactions for an invoice" do
+    get :transactions, format: :json, id: Invoice.first.id
 
-    assert_equal 3, parsed_response.count
+    assert_response :success
   end
 end

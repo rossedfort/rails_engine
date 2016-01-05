@@ -7,6 +7,11 @@ Rails.application.routes.draw do
           get 'find_all'
           get 'random'
         end
+
+        member do
+          get :items
+          get :invoices
+        end
       end
       resources :customers, except: [:new, :edit], defaults: { format: :json } do
         collection do
@@ -27,6 +32,10 @@ Rails.application.routes.draw do
           get 'find'
           get 'find_all'
           get 'random'
+        end
+
+        member do
+          get :transactions
         end
       end
       resources :invoice_items, except: [:new, :edit], defaults: { format: :json } do
