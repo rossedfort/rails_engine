@@ -10,7 +10,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def find
-    if params["status"]
+    if params["result"]
       respond_with Transaction.where("#{params.first[0]} ILIKE ?", params.first[1]).first
     else
       respond_with Transaction.where("#{params.first[0]}": params.first[1]).first
@@ -18,7 +18,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def find_all
-    if params["status"]
+    if params["result"]
       respond_with Transaction.where("#{params.first[0]} ILIKE ?", params.first[1])
     else
       respond_with Transaction.where("#{params.first[0]}": params.first[1])
