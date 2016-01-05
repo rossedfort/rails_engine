@@ -9,3 +9,8 @@ two:
   id: 2
   first_name: Turd
   last_name: Furgeson
+
+three:
+  id: 3
+  first_name: Ross
+  last_name: Furgeson

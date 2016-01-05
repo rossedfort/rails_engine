@@ -10,18 +10,10 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    if params["name"]
-      respond_with Customer.where("#{params.first[0]} ILIKE ?", params.first[1]).first
-    else
-      respond_with Customer.where("#{params.first[0]}": params.first[1]).first
-    end
+    respond_with Customer.where("#{params.first[0]}": params.first[1]).first
   end
 
   def find_all
-    if params["name"]
-      respond_with Customer.where("#{params.first[0]} ILIKE ?", params.first[1])
-    else
-      respond_with Customer.where("#{params.first[0]}": params.first[1])
-    end
+    respond_with Customer.where("#{params.first[0]}": params.first[1])
   end
 end
