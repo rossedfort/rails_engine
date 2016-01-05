@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyString
-  unit_price: 1
+  id: 1
+  name: A Blue Mug
+  description: A blue ceramic mug to hold all your hot beverages
+  unit_price: 10.10
 
 two:
-  name: MyString
-  description: MyString
-  unit_price: 1
+  id: 2
+  name: A Doge Hat
+  description: A hat that looks like doge
+  unit_price: 100.00
+
+three:
+  id: 3
+  name: A Doge Hat
+  description: This doge hat is better than the other one
+  unit_price: 1000.00
