@@ -141,4 +141,16 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert json_response.include?("first_name")
     assert json_response.include?("last_name")
   end
+
+  test "#revenue responds to json" do
+    get :revenue, format: :json, id: 1
+
+    assert_response :success
+  end
+
+  test "#revenue works with optional date argument" do
+    get :revenue, format: :json, id: 1, date: "2016-01-06 15:22:34 -0700"
+
+    assert_response :success
+  end
 end

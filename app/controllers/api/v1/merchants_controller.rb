@@ -26,7 +26,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def invoices
-    respond_with Invoice.where(merchant_id: params[:id])
+    respond_with Merchant.find(params[:id]).invoices
   end
 
   def most_revenue
@@ -38,11 +38,15 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def customers_with_pending_invoices
-    respond_with Merchant.customers_with_pending_invoices(params[:id])
+    respond_with Merchant.find(params[:id]).customers_with_pending_invoices
   end
 
   def favorite_customer
     respond_with Merchant.favorite_customer(params[:id])
+  end
+
+  def revenue
+    respond_with Merchant.find(params[:id]).revenue(params)
   end
 
   private

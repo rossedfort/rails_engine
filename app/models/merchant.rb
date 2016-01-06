@@ -14,7 +14,6 @@ class Merchant < ActiveRecord::Base
     order("RANDOM()").first
   end
 
-
   def self.most_revenue(quantity)
     all.sort_by(&:calculate_revenue).reverse.first(quantity.to_i)
   end
@@ -23,8 +22,16 @@ class Merchant < ActiveRecord::Base
     all.sort_by(&:calculate_items).reverse.first(quantity.to_i)
   end
 
-  def self.customers_with_pending_invoices(merchant_id)
-    find(merchant_id).invoices.pending.distinct.map(&:customer)
+  def customers_with_pending_invoices
+    invoices.pending.distinct.map(&:customer)
+  end
+
+  def revenue(params)
+    if params[:date]
+      {"revenue" => invoices.successful.where(created_at: params[:date]).joins(:invoice_items).sum("quantity * unit_price")}
+    else
+      {"revenue" => invoices.successful.joins(:invoice_items).sum("quantity * unit_price")}
+    end
   end
 
   def self.favorite_customer(merchant_id)

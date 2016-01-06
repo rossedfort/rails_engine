@@ -14,8 +14,7 @@ Rails.application.routes.draw do
         member do
           get :items
           get :invoices
-          get :revenue, action: 'single_revenue'
-          get :revenues
+          get :revenue
           get :customers_with_pending_invoices
           get :favorite_customer
         end
