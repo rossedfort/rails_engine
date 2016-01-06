@@ -1,87 +1,87 @@
 require 'test_helper'
 
 class Api::V1::InvoicesControllerTest < ActionController::TestCase
-  test "should get index" do
+  test "should get #index" do
     get :index, format: :json
 
     assert_response :success
   end
 
-  test "index action returns all the invoices" do
+  test "#index action returns all the invoices" do
     invoice_count = Invoice.count
     get :index, format: :json
-    controller_response = JSON.parse(response.body)
 
-    assert_equal invoice_count, controller_response.count
+    assert_equal invoice_count, json_response.count
   end
 
-  test "should get show" do
-    get :show, format: :json, id: 1
+  test "should get #show" do
+    get :show, format: :json, id: Invoice.first.id
 
     assert_response :success
   end
 
-  test "show action returns correct invoice" do
-    get :show, format: :json, id: 1
-    invoice = Invoice.find(1)
-    parsed_response = JSON.parse(response.body)
+  test "#show action returns correct invoice" do
+    get :show, format: :json, id: Invoice.first.id
+    invoice = Invoice.find(Invoice.first.id)
 
-    assert_equal invoice.id, parsed_response["id"]
-    assert_equal invoice.status, parsed_response["status"]
-    assert_equal invoice.merchant_id, parsed_response["merchant_id"]
-    assert_equal invoice.customer_id, parsed_response["customer_id"]
+    assert_equal invoice.id, json_response["id"]
+    assert_equal invoice.status, json_response["status"]
+    assert_equal invoice.merchant_id, json_response["merchant_id"]
+    assert_equal invoice.customer_id, json_response["customer_id"]
   end
 
-  test "random action returns a random record" do
+  test "#random action returns a random record" do
     get :random, format: :json
 
     assert_response :success
+    assert json_response["merchant_id"]
+    assert json_response["customer_id"]
   end
 
-  test "find invoice by id" do
-    get :find, format: :json, id: 1
+  test "#find invoice by id" do
+    get :find, format: :json, id: Invoice.first.id
 
     assert_response :success
+    assert json_response["merchant_id"]
+    assert json_response["customer_id"]
   end
 
-  test "find invoice by merchant_id" do
-    get :find, format: :json, merchant_id: 1
+  test "#find invoice by merchant_id" do
+    get :find, format: :json, merchant_id: Invoice.first.id
 
     assert_response :success
+    assert json_response["merchant_id"]
+    assert json_response["customer_id"]
   end
 
-  test "find invoice by status" do
+  test "#find invoice by status" do
     get :find, format: :json, status: "shipped"
 
     assert_response :success
+    assert json_response["merchant_id"]
+    assert json_response["customer_id"]
   end
 
-  test "find invoice by status - case insensitive" do
-    get :find, format: :json, status: "ShiPeD"
-
-    assert_response :success
-  end
-
-  test "find all returns all records matching query parameters - merchant_id" do
+  test "#find_all returns all records matching query parameters - merchant_id" do
     get :find_all, format: :json, merchant_id: 2
-    parsed_response = JSON.parse(response.body)
     assert_response :success
 
-    assert_equal 2, parsed_response.count
+    assert_equal 2, json_response.count
   end
 
-  test "find all returns all records matching query parameters - status" do
+  test "#find_all returns all records matching query parameters - status" do
     get :find_all, format: :json, status: "shipped"
-    parsed_response = JSON.parse(response.body)
     assert_response :success
 
-    assert_equal 3, parsed_response.count
+    assert_equal 3, json_response.count
   end
 
   test "#transactions returns all transactions for an invoice" do
     get :transactions, format: :json, id: Invoice.first.id
 
     assert_response :success
+    assert json_response[0]["credit_card_number"]
+    assert json_response[0]["result"]
   end
 
   test "#invoice_items responds to json" do

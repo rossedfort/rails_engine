@@ -25,12 +25,12 @@ class Merchant < ActiveRecord::Base
 
   def self.all_revenue(date)
     #some code here that will determine the total revenue for the date across all merchants
-    {"a" => quantity}
+    {"a" => 1}
   end
 
   def self.single_revenue(merchant_id, date)
     #returns the total revenue for that merchant for a specific invoice date x
-    {"a" => quantity}
+    {"a" => 1}
   end
 
   def self.revenue(merchant_id)
@@ -43,9 +43,10 @@ class Merchant < ActiveRecord::Base
 
   def self.favorite_customer(merchant_id)
     Customer.find(Merchant.find(merchant_id)
-                          .invoices.group(:customer_id)
-                          .order("count_id desc")
-                          .count("id")
-                          .first[0])
+                  .invoices.group(:customer_id)
+                  .order("count_id desc")
+                  .count("id")
+                  .first[0]
+                  )
   end
 end

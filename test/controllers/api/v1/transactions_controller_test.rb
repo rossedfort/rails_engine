@@ -10,26 +10,24 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
   test "index action returns all the transactions" do
     transaction_count = Transaction.count
     get :index, format: :json
-    controller_response = JSON.parse(response.body)
 
-    assert_equal transaction_count, controller_response.count
+    assert_equal transaction_count, json_response.count
   end
 
   test "should get show" do
-    get :show, format: :json, id: 1
+    get :show, format: :json, id: Transaction.first.id
 
     assert_response :success
   end
 
   test "show action returns correct transaction" do
-    get :show, format: :json, id: 1
-    transaction = Transaction.find(1)
-    parsed_response = JSON.parse(response.body)
+    get :show, format: :json, id: Transaction.first.id
+    transaction = Transaction.find(Transaction.first.id)
 
-    assert_equal transaction.id, parsed_response["id"]
-    assert_equal transaction.credit_card_number, parsed_response["credit_card_number"]
-    assert_equal transaction.result, parsed_response["result"]
-    assert_equal transaction.invoice_id, parsed_response["invoice_id"]
+    assert_equal transaction.id, json_response["id"]
+    assert_equal transaction.credit_card_number, json_response["credit_card_number"]
+    assert_equal transaction.result, json_response["result"]
+    assert_equal transaction.invoice_id, json_response["invoice_id"]
   end
 
   test "random action returns a random record" do
@@ -39,7 +37,7 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
   end
 
   test "find transaction by id" do
-    get :find, format: :json, id: 1
+    get :find, format: :json, id: Transaction.first.id
 
     assert_response :success
   end
@@ -50,26 +48,19 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "find transaction by result - case insensitive" do
-    get :find, format: :json, result: "sUcCeSS"
-
-    assert_response :success
-  end
 
   test "find all returns all records matching query parameters - result" do
     get :find_all, format: :json, result: "failed"
-    parsed_response = JSON.parse(response.body)
     assert_response :success
 
-    assert_equal 2, parsed_response.count
+    assert_equal 2, json_response.count
   end
 
   test "find all returns all records matching query parameters - invoice id" do
     get :find_all, format: :json, invoice_id: 2
-    parsed_response = JSON.parse(response.body)
     assert_response :success
 
-    assert_equal 2, parsed_response.count
+    assert_equal 2, json_response.count
   end
 
   test "#invoice responds to json" do
@@ -82,5 +73,8 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
     get :invoice, format: :json, id: Transaction.first.id
 
     assert_kind_of Hash, json_response
+    assert json_response["merchant_id"]
+    assert json_response["customer_id"]
+    assert json_response["status"]
   end
 end
