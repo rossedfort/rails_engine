@@ -29,6 +29,34 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Invoice.where(merchant_id: params[:id])
   end
 
+  def most_revenue
+    respond_with Merchant.most_revenue(params[:quantity])
+  end
+
+  def most_items
+    respond_with Merchant.most_items(params[:quantity])
+  end
+
+  def all_revenue
+    respond_with Merchant.all_revenue(params[:date])
+  end
+
+  def single_revenue
+    respond_with Merchant.single_revenue(params[:date])
+  end
+
+  def customers_with_pending_invoices
+    respond_with Merchant.customers_with_pending_invoices
+  end
+
+  def revenue
+    respond_with Merchant.revenue
+  end
+
+  def favorite_customer
+    respond_with Merchant.favorite_customer
+  end
+
   private
 
   def merchant_params

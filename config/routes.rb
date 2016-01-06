@@ -6,11 +6,18 @@ Rails.application.routes.draw do
           get 'find'
           get 'find_all'
           get 'random'
+          get 'most_revenue', action: 'most_revenue'
+          get 'most_items',   action: 'most_items'
+          get 'revenue',      action: 'all_revenue'
         end
 
         member do
           get :items
           get :invoices
+          get :revenue
+          get :revenue, action: 'single_revenue'
+          get :customers_with_pending_invoices
+          get :favorite_customer
         end
       end
       resources :customers, except: [:new, :edit], defaults: { format: :json } do
@@ -23,6 +30,7 @@ Rails.application.routes.draw do
         member do
           get :invoices
           get :transactions
+          get :favorite_merchant
         end
       end
       resources :items, except: [:new, :edit], defaults: { format: :json } do
@@ -30,11 +38,14 @@ Rails.application.routes.draw do
           get 'find'
           get 'find_all'
           get 'random'
+          get 'most_revenue', action: 'most_revenue'
+          get 'most_items',   action: 'most_items'
         end
 
         member do
           get :invoice_items
           get :merchant
+          get :best_day
         end
       end
       resources :invoices, except: [:new, :edit], defaults: { format: :json } do

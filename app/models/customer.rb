@@ -5,4 +5,8 @@ class Customer < ActiveRecord::Base
   def self.random
     order("RANDOM()").first
   end
+
+  def self.favorite_merchant
+    {"favorite_merchant" => "shmavorite merchant"}
+  end
 end
