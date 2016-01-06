@@ -10,6 +10,10 @@ class Item < ActiveRecord::Base
     invoices.successful.joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
+  def calculate_items
+    invoice_items.sum("invoice_items.quantity")
+  end
+
   def sanitize_price
     self.unit_price = (unit_price.to_f/100).to_s
   end
@@ -20,5 +24,9 @@ class Item < ActiveRecord::Base
 
   def self.most_revenue(quantity)
     all.sort_by(&:calculate_revenue).reverse.first(quantity.to_i)
+  end
+
+  def self.most_items(quantity)
+    all.sort_by(&:calculate_items).reverse[0...(quantity.to_i)]
   end
 end
