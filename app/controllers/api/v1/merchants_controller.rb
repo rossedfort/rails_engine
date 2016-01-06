@@ -37,20 +37,8 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Merchant.most_items(params[:quantity])
   end
 
-  def all_revenue
-    respond_with Merchant.all_revenue(params[:date])
-  end
-
-  def single_revenue
-    respond_with Merchant.single_revenue(params[:id], params[:date])
-  end
-
   def customers_with_pending_invoices
     respond_with Merchant.customers_with_pending_invoices(params[:id])
-  end
-
-  def revenues
-    respond_with Merchant.revenue(params[:id])
   end
 
   def favorite_customer

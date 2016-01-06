@@ -33,14 +33,6 @@ class Api::V1::ItemsController < ApplicationController
     respond_with Item.most_revenue(params[:quantity])
   end
 
-  def most_items
-    respond_with Item.most_items(params[:quantity])
-  end
-
-  def best_day
-    respond_with Item.best_day
-  end
-
   private
 
   def item_params

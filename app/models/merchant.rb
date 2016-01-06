@@ -23,20 +23,6 @@ class Merchant < ActiveRecord::Base
     all.sort_by(&:calculate_items).reverse.first(quantity.to_i)
   end
 
-  def self.all_revenue(date)
-    #some code here that will determine the total revenue for the date across all merchants
-    {"a" => 1}
-  end
-
-  def self.single_revenue(merchant_id, date)
-    #returns the total revenue for that merchant for a specific invoice date x
-    {"a" => 1}
-  end
-
-  def self.revenue(merchant_id)
-    {"revenue" => find(merchant_id).invoices.successful.joins(:invoice_items).sum("quantity * unit_price")}
-  end
-
   def self.customers_with_pending_invoices(merchant_id)
     find(merchant_id).invoices.pending.distinct.map(&:customer)
   end
