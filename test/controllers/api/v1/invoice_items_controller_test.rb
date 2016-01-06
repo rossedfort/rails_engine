@@ -27,7 +27,6 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
     parsed_response = JSON.parse(response.body)
 
     assert_equal invoice_item.id, parsed_response["id"]
-    assert_equal invoice_item.unit_price, parsed_response["unit_price"]
     assert_equal invoice_item.item_id, parsed_response["item_id"]
     assert_equal invoice_item.invoice_id, parsed_response["invoice_id"]
   end

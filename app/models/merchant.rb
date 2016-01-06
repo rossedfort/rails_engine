@@ -1,13 +1,17 @@
 class Merchant < ActiveRecord::Base
   has_many :items
+  has_many :invoices
 
   def self.random
     order("RANDOM()").first
   end
 
+  def revenue
+    invoices.successful.joins(:invoice_items).sum("quantity * unit_price")
+  end
+
   def self.most_revenue(quantity)
-    #some code here that will determine the merchants with most revenue
-    {"a" => quantity}
+    all.sort_by(&:revenue).reverse.first(quantity.to_i)
   end
 
   def self.most_items(quantity)
