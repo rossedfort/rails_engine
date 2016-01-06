@@ -42,15 +42,15 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def single_revenue
-    respond_with Merchant.single_revenue(params[:date])
+    respond_with Merchant.single_revenue(params[:id], params[:date])
   end
 
   def customers_with_pending_invoices
     respond_with Merchant.customers_with_pending_invoices
   end
 
-  def revenue
-    respond_with Merchant.revenue
+  def revenues
+    respond_with Merchant.revenue(params[:id])
   end
 
   def favorite_customer
