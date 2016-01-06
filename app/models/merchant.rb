@@ -37,11 +37,15 @@ class Merchant < ActiveRecord::Base
     {"revenue" => find(merchant_id).invoices.successful.joins(:invoice_items).sum("quantity * unit_price")}
   end
 
-  def self.customers_with_pending_invoices
-    {"customers_with_pending_invoices" => "shmustomers with shmending shminvoices"}
+  def self.customers_with_pending_invoices(merchant_id)
+    find(merchant_id).invoices.pending.distinct.map(&:customer)
   end
 
-  def self.favorite_customer
-    {"favorite_customer" => "shmavorite customer"}
+  def self.favorite_customer(merchant_id)
+    Customer.find(Merchant.find(merchant_id)
+                          .invoices.group(:customer_id)
+                          .order("count_id desc")
+                          .count("id")
+                          .first[0])
   end
 end
