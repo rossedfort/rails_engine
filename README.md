@@ -4,12 +4,6 @@
 
 In this project, you will use Rails and ActiveRecord to build a JSON API which exposes the SalesEngine data schema.
 
-The project requirements are listed below:
-
-* [Learning Goals](#learning-goals)
-* [Technical Expectations](#technical-expectations)
-* [Evaluation](#evaluation)
-
 ## <a name="learning-goals"></a> Learning Goals
 
 * Learn how to to build Single-Responsibility controllers to provide a well-designed and versioned API.
@@ -34,3 +28,7 @@ entity included in the [sales engine data](https://github.com/turingschool/sales
 ### Endpoints
 
 API Endpoints for this project can be grouped into 3 categories. They are Record Endpoints, Relationship Endpoints, and Business Intellignence Endpoints. Record Endpoints simply display data that correspond to any given model. Relationship Endpoints display data for model that is scoped to a specific record. Business Intelligence Endpoints display data that is retrieved and calculated using complex ActiveRecord queries. Often these endpoints reqiure parameters such as a date, quantity, or id.
+
+### Evaluation
+
+The project is evaluated in several categories such as feature completeness, code quality, query quality, and test coverage. The project must be run against a [spec harness](https://github.com/turingschool/rales_engine_spec_harness) with over 36,000 assertions.
