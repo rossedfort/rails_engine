@@ -29,4 +29,8 @@ class Item < ActiveRecord::Base
   def self.most_items(quantity)
     all.sort_by(&:calculate_items).reverse[0...(quantity.to_i)]
   end
+
+  def best_day
+    {"best_day" => invoice_items.successful.group("invoices.created_at").order("sum_quantity DESC").sum("quantity").first[0]}
+  end
 end
