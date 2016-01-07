@@ -22,11 +22,11 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def transactions
-    respond_with Transaction.where(invoice_id: params[:id])
+    respond_with Invoice.find(params[:id]).transactions
   end
 
   def invoice_items
-    respond_with InvoiceItem.where(invoice_id: params[:id])
+    respond_with Invoice.find(params[:id]).invoice_items
   end
 
   def items

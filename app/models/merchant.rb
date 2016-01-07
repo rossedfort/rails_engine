@@ -1,7 +1,7 @@
 class Merchant < ActiveRecord::Base
   has_many :items
   has_many :invoices
-  
+
   def calculate_revenue
     invoices.successful.joins(:invoice_items).sum("quantity * unit_price")
   end

@@ -6,6 +6,10 @@ class Item < ActiveRecord::Base
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
 
+  def sanitize_price
+    self.unit_price = (unit_price.to_f/100).to_s
+  end
+
   def calculate_revenue
     invoices.successful.joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
   end
@@ -14,9 +18,6 @@ class Item < ActiveRecord::Base
     invoice_items.sum("invoice_items.quantity")
   end
 
-  def sanitize_price
-    self.unit_price = (unit_price.to_f/100).to_s
-  end
 
   def self.random
     order("RANDOM()").first

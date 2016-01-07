@@ -113,4 +113,31 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert json_response[0].include?("name")
     assert json_response[0].include?("description")
   end
+
+  test "#most_items responds to json" do
+    get :most_items, format: :json, quantity: 1
+
+    assert_response :success
+  end
+
+  test "#most_items returns an array of items" do
+    get :most_items, format: :json, quantity: 1
+
+    assert_kind_of Array, json_response
+    assert json_response[0]["name"]
+    assert json_response[0]["description"]
+  end
+
+  test "#best_day responds to json" do
+    get :best_day, format: :json, id: Item.first.id
+
+    assert_response :success
+  end
+
+  test "#best_day reurns a hash" do
+    get :best_day, format: :json, id: Item.first.id
+
+    assert_kind_of Hash, json_response
+    assert json_response["best_day"]
+  end
 end

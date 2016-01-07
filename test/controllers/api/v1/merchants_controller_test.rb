@@ -153,4 +153,17 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  test "#all_revenue responds to json" do
+    get :all_revenue, format: :json, date: "2016-01-06 15:22:34 -0700"
+
+    assert_response :success
+  end
+
+  test "#all_revenue returns a hash" do
+    get :all_revenue, format: :json, date: "2016-01-06 15:22:34 -0700"
+
+    assert_kind_of Hash, json_response
+    assert json_response["total_revenue"]
+  end
 end
